@@ -14,7 +14,7 @@ namespace Net6IsolatedColdStartOptimizedApp
             _logger = loggerFactory.CreateLogger<Function1>();
         }
 
-        [Function("Function1")]
+        [Function("HelloHttp")]
         public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
@@ -22,7 +22,7 @@ namespace Net6IsolatedColdStartOptimizedApp
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
 
-            response.WriteString("Welcome to Azure Functions!");
+            response.WriteString("Welcome to Azure Functions!917R2Rw");
 
             return response;
         }
