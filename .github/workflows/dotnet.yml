@@ -19,12 +19,12 @@ jobs:
         dotnet-version: '7.0.100'
 
     - name: Publish
-      run: dotnet publish -c release -r win-x64 --no-self-contained
+      run: dotnet publish -c release -r win-x64 -o ./out/win-x64 --no-self-contained
 
     - name: Zip artifacts
       run: |
         $zipFileName = "published-artifacts.zip"
-        Compress-Archive -Path ./bin/Release/net6.0/win-x64/publish -DestinationPath $zipFileName
+        Compress-Archive -Path ./out/win-x64 -DestinationPath $zipFileName
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
