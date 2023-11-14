@@ -16,7 +16,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: '7.0.100'  # Replace with the desired .NET 7 version
+        dotnet-version: '8.0.0'
 
     - name: Publish
       run: dotnet publish -c release -r win-x64 --no-self-contained
@@ -24,7 +24,7 @@ jobs:
     - name: Zip artifacts
       run: |
         $zipFileName = "published-artifacts.zip"
-        Compress-Archive -Path ./bin/Release/net7.0/win-x64/publish -DestinationPath $zipFileName
+        Compress-Archive -Path ./bin/Release/net6.0/win-x64/publish -DestinationPath $zipFileName
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
