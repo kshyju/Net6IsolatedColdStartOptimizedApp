@@ -21,13 +21,8 @@ jobs:
     - name: Publish
       run: dotnet publish -c release -r win-x64 -o ./out/win-x64 --no-self-contained
 
-    - name: Zip artifacts
-      run: |
-        $zipFileName = "published-artifacts.zip"
-        Compress-Archive -Path ./out/win-x64 -DestinationPath $zipFileName
-
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: published-artifacts
-        path: published-artifacts.zip
+        name: published-artifacts-win-x64
+        path: ./out/win-x64
