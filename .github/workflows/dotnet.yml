@@ -3,12 +3,12 @@ name: Publish and Package
 on:
   push:
     branches:
-      - master
+      - 'master'
       - 'publish/**'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build-windows:
+    runs-on: windows-latest
     
     steps:
     - name: Checkout code
@@ -18,10 +18,6 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: '8.*'
-
-    - name: Get branch name
-      id: get_branch
-      run: echo "::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})"
 
     - name: Get commit hash
       id: get_commit
@@ -33,7 +29,7 @@ jobs:
     - name: Upload artifact for Win-x64
       uses: actions/upload-artifact@v2
       with:
-        name: published-artifacts-win-x64-${{ steps.get_branch.outputs.branch//\//_ }}-${{ steps.get_commit.outputs.commit }}-${{ github.run_number }}
+        name: published-artifacts-win-x64-${{ steps.get_commit.outputs.commit }}-${{ github.run_number }}
         path: ./out/win-x64
 
   build-linux:
@@ -48,10 +44,6 @@ jobs:
       with:
         dotnet-version: '8.*'
 
-    - name: Get branch name
-      id: get_branch
-      run: echo "::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})"
-
     - name: Get commit hash
       id: get_commit
       run: echo "::set-output name=commit::${GITHUB_SHA::8}"
@@ -62,5 +54,5 @@ jobs:
     - name: Upload artifact for Linux-x64
       uses: actions/upload-artifact@v2
       with:
-        name: published-artifacts-linux-x64-${{ steps.get_branch.outputs.branch//\//_ }}-${{ steps.get_commit.outputs.commit }}-${{ github.run_number }}
+        name: published-artifacts-linux-x64-${{ steps.get_commit.outputs.commit }}-${{ github.run_number }}
         path: ./out/linux-x64
